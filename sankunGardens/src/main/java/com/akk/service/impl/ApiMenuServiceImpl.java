@@ -45,4 +45,20 @@ public class ApiMenuServiceImpl implements ApiMenuService {
         }*/
         return apiMenuDtoList;
     }
+
+    /**
+     * 返回所有父栏目的name
+     * @return
+     */
+    public List<ApiMenu> getApiFMenuList(){
+        return apiMenuDao.getFApiMenuList();
+    }
+
+    /**
+     * 返回所有子栏目的name
+     * @return
+     */
+    public List<ApiMenu> getApiZMenuList(){
+        return apiMenuDao.getZApiMenuList();
+    }
 }

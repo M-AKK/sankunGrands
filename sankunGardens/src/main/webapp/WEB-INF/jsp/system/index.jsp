@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.Date"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
 	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE"/>
 	    <title>三鲲园林网站后台管理</title>
@@ -83,21 +84,21 @@
 		        </div>
 		    </div>
 		    <div id="container">
-		        <table style="vertical-align:top" cellspacing="0" cellpadding="0" bgcolor="#e1e9eb" border="0">
+		        <table style="vertical-align:top; height: 750px;" cellspacing="0" cellpadding="0" bgcolor="#e1e9eb" border="0">
 		            <tbody>
 		            <tr>
-		                <td class="leftTd" style="vertical-align:top" width="150">
+		                <td class="leftTd" style="vertical-align:top" width="180">
 		                    <div class="left">
 		                        <div class="ileft" id="subMenuDiv">
 		                        	
 		                        </div>
 		                    </div>
 		                </td>
-		                <td width="7">
+		                <td width="1%">
 		                    <div class="pointer"></div>
 		                </td>
-		                <td style="vertical-align:top" height="600px" width="100%">
-		                	<br/><iframe id="mainPage" src="" frameborder="0" height="580px" width="100%"></iframe><br/>
+		                <td style="vertical-align:top" height="100%" width="100%">
+		                	<br/><iframe id="mainPage" src="" frameborder="0" height="750px" width="100%"></iframe><br/>
 		                 </td>
 		            </tr>
 		            </tbody>

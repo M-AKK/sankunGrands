@@ -14,4 +14,5 @@ public class ApiMenu {
     private String url;
     private Long parentId;
     private Integer orderNum;
+    private String link;//点击跳转到哪个页面
 }

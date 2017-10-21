@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
@@ -20,9 +21,9 @@
 			<input type="hidden" id="message" value="${pageCode.msg}"/>
 			<input type="hidden" id="basePath" value="${basePath}"/>
 			<div class="right">
-				<div class="current">当前位置：<a href="###">内容管理</a> &gt; 广告管理</div>
+				<div class="current">当前位置：<a href="###">内容管理</a> &gt; 图片管理</div>
 				<div class="rightCont">
-					<p class="g_title fix">修改广告</p>
+					<p class="g_title fix">修改图片</p>
 					<table class="tab1" width="100%">
 						<tbody>
 							<tr>
@@ -32,25 +33,28 @@
 							</td>
 							<td align="right" width="10%">上传图片：</td>
 							<td width="30%">
-								<a href="${modifyObj.img}">查看图片</a>
+								<a href="${modifyObj.img}" target="_Blank">查看图片</a>
 								<input type="hidden" name="img" value="${modifyObj.img}"/>
 								<input id="imgFile" name="imgFile" class="allInput" style="width:100%;" type="file"/>
 							</td>
 						</tr>
 						<tr>
-							<td align="right" width="10%">链接地址<font color="red">*</font>：</td>
+							<%--<td align="right" width="10%">链接地址<font color="red">*</font>：</td>
 							<td width="30%">
 								<input id="link" name="link"  value="${modifyObj.link}" class="allInput" style="width:100%;" type="text"/>
+							</td>--%>
+							<td align="right" width="10%">分类<font color="red">*</font>：</td>
+							<td width="30%">
+								<select name="imgGroupId">
+									<c:forEach items="${imggroup}" var="item">
+										<c:if test="${item.id == modifyObj.imgGroupId}">selected="selected"</c:if>
+										<option value="${item.id}">${item.name}</option>
+									</c:forEach>
+								</select>
 							</td>
 							<td align="right" width="10%">权重(值越大排名越靠前)<font color="red">*</font>：</td>
 							<td width="30%">
 								<input id="weight" name="weight"  value="${modifyObj.weight}" class="allInput" style="width:100%;" type="text"/>
-							</td>
-						</tr>
-						<tr>
-							<td align="right" width="10%">分类<font color="red">*</font>：</td>
-							<td width="30%">
-								<input id="type" name="type" value="${modifyObj.imgGroup.name}" class="allInput" style="width:100%;" type="text"/>
 							</td>
 						</tr>
 					  </tbody>

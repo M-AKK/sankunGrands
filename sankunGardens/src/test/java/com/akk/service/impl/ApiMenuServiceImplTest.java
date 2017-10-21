@@ -23,9 +23,7 @@ public class ApiMenuServiceImplTest {
     public void getMenuList() throws Exception {
         List<ApiMenuDto> menuDtoList = new ArrayList<ApiMenuDto>();
         menuDtoList = apiMenuService.getMenuList();
-        /*for(int i=0; i<menuDtoList.size(); i++){
-            System.out.println(menuDtoList.get(i).getName());
-        }*/
+
         Assert.assertNotNull(menuDtoList);
     }
 

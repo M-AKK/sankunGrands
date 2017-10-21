@@ -2,18 +2,21 @@
 <!DOCTYPE configuration>
 <configuration>
 	<property resource="properties/logback.properties" />
-	<!--控制台输出 -->
-	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method\(\):%L -%msg%n</pattern>
-		</encoder>
-	</appender>
-	<!--文件输出 -->
-	<appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+    <!--控制台输出-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!--文件输出 -->
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <Encoding>UTF-8</Encoding>
-        <File>${log.base}comment.log</File>
+        <File>${log.base}sankun.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${log.base}comment.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
+            <FileNamePattern>${log.base}sankun.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
         </rollingPolicy>
         <encoder>
             <pattern>%date|%msg%n</pattern>
@@ -23,5 +26,6 @@
     <root>
         <level value="${log.level}" />
         <appender-ref ref="${log.appender.ref}" />
+        <appender-ref ref="${log.appender1.ref}" />
     </root>
 </configuration>

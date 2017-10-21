@@ -5,6 +5,7 @@ import com.akk.dao.AdDao;
 import com.akk.dto.AdDto;
 import com.akk.service.AdService;
 import com.akk.util.FileUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class AdServiceImpl implements AdService {
 
 	@Autowired
@@ -29,11 +31,10 @@ public class AdServiceImpl implements AdService {
 	private String adImageUrl;
 
 	@Override
-	// TODO 可以改成获取失败详细原因
 	public boolean add(AdDto adDto) {
 		Ad ad = new Ad();
 		ad.setTitle(adDto.getTitle());
-		ad.setLink(adDto.getLink());
+		//ad.setLink(adDto.getLink());
 		ad.setWeight(adDto.getWeight());
 		if (adDto.getImgFile() != null && adDto.getImgFile().getSize() > 0) {
 			String fileName = System.currentTimeMillis() + "_" + adDto.getImgFile().getOriginalFilename();
@@ -44,12 +45,11 @@ public class AdServiceImpl implements AdService {
 			}
 			try {
 				adDto.getImgFile().transferTo(file);//transferTo：把imgFileName转移到一个文件，但首先你得自己创建一个文件
-
 				ad.setImgFileName(fileName);
 				adDao.insert(ad);
 				return true;
 			} catch (IllegalStateException | IOException e) {
-				// TODO 需要添加日志
+				log.info("【上传图片失败】, 图片地址={}",fileName);
 				return false;
 			}
 		} else {
@@ -83,8 +83,16 @@ public class AdServiceImpl implements AdService {
 	}
 
 	@Override
-	public List<AdDto> selectAll(AdDto adDto) {
-		return null;
+	public List<AdDto> selectAll() {
+        List<AdDto> result = new ArrayList<>();
+        List<Ad> adList = adDao.selectAll();
+        for(Ad ad : adList){
+            AdDto adDto = new AdDto();
+            result.add(adDto);
+            adDto.setImg(adImageUrl + ad.getImgFileName());
+            BeanUtils.copyProperties(ad, adDto);
+        }
+		return result;
 	}
 
 	@Override
@@ -97,7 +105,7 @@ public class AdServiceImpl implements AdService {
 				fileName = FileUtil.save(adDto.getImgFile(), adImageSavePath);
 				ad.setImgFileName(fileName);
 			} catch (IllegalStateException | IOException e) {
-				// TODO 需要添加日志
+				log.info("【修改：上传图片失败】，图片地址={}", fileName);
 				return false;
 			}
 		}

@@ -21,10 +21,9 @@ public interface AdService {
 
     /**
      * 前端查询所有图片,根据权重排值,大的在前
-     * @param adDto
      * @return
      */
-    List<AdDto> selectAll(AdDto adDto);
+    List<AdDto> selectAll();
 
     /**
      * 根据主键获取广告的Dto对象，初始化修改页面用的

@@ -10,4 +10,5 @@ import lombok.Data;
 public class ImgGroup {
     private int id;
     private String name;
+    private Long weight;
 }

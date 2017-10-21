@@ -3,20 +3,28 @@ package com.akk.controller.system;
 import com.akk.constant.PageCodeEnum;
 import com.akk.dto.AdDto;
 import com.akk.service.AdService;
+import com.akk.service.ImgGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 图片列表
+ */
 @Controller
 @RequestMapping("/ad")
 public class AdController {
 
 	@Autowired
 	private AdService adService;
+
+	@Autowired
+	private ImgGroupService imgGroupService;
 
 	/**
 	 * 广告管理页初始化(点广告管理菜单进入的第一个页面)
@@ -32,7 +40,7 @@ public class AdController {
 	/**
 	 * 查询
 	 */
-	@RequestMapping("/search")
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(Model model, AdDto adDto) {
 		model.addAttribute("list", adService.searchByPage(adDto));
 		model.addAttribute("searchParam", adDto);
@@ -42,7 +50,7 @@ public class AdController {
 	/**
 	 * 删除
 	 */
-	@RequestMapping("/remove")
+	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	public String remove(@RequestParam("id") Long id,Model model) {
 		if(adService.remove(id)) {
 			model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.REMOVE_SUCCESS);
@@ -55,15 +63,16 @@ public class AdController {
 	/**
 	 * 新增页初始化
 	 */
-	@RequestMapping("/addInit")
-	public String addInit() {
+	@RequestMapping(value = "/addInit", method = RequestMethod.GET)
+	public String addInit(Model model) {
+		model.addAttribute("imggroup", imgGroupService.select());
 		return "/content/adAdd";
 	}
 
 	/**
 	 * 新增
 	 */
-	@RequestMapping("/add")
+	@RequestMapping(value = "/add")
 	public String add(AdDto adDto, Model model) {
 		if (adService.add(adDto)) {
 			model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.ADD_SUCCESS);
@@ -76,9 +85,10 @@ public class AdController {
 	/**
 	 * 修改页初始化
 	 */
-	@RequestMapping("/modifyInit")
+	@RequestMapping(value = "/modifyInit", method = RequestMethod.POST)
 	public String modifyInit(Model model, @RequestParam("id") Long id) {
 		model.addAttribute("modifyObj", adService.getById(id));
+		model.addAttribute("imggroup", imgGroupService.select());
 		return "/content/adModify";
 	}
 

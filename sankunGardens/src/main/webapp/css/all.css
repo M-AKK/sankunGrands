@@ -42,7 +42,7 @@ input, select, teatarea { font:12px Arial, Helvetica, sans-serif; }
 .nav li a:hover span, .nav li.on a span { background:url(../images/navbg.png) no-repeat right top;}
 .selectBox { float:right; margin-top:25px; display:inline; margin-right:30px;}
 /*footer*/
-#footer { width:100%; text-align:center; padding-top:20px; color:#dbdbdb;}
+#footer { width:100%; text-align:center; color:#dbdbdb;}
 /*登录页面*/
 .login { width:874px; height:317px; padding-top:193px; background:url(../images/login.jpg) no-repeat; margin:0 auto 70px;}
 .loginBox { width:350px; height:220px; margin-left:215px; padding:40px 0 0 50px;}
@@ -65,7 +65,7 @@ input, select, teatarea { font:12px Arial, Helvetica, sans-serif; }
 .ileft { width:143px; margin-left:1px;}
 .left h2 { font-size:14px; padding-left:20px; height:36px; line-height:36px; border-bottom:1px solid #dce4e6;}
 .left h3 {cursor:pointer; color:#266392; font-size:14px; font-weight:normal; padding-top:10px; padding-left:20px; margin-bottom:10px; border-top:1px solid #fff;}
-.left h3 a { display:block; width:155px; position:relative; margin-left:-20px; padding-left:20px; height:35px; line-height:32px;color:#266392;}
+.left h3 a { display:block; width:135px; position:relative; margin-left:-20px; padding-left:20px; height:35px; line-height:32px;color:#266392;}
 .leftTd { background:url(../images/tdbg.png) repeat-y 0 0;}
 .left li a {cursor:pointer; display:block; width:120px; padding-left:35px; position:relative; height:35px; line-height:32px; color:#266392;}
 .left li a:hover, .left li.on a,.left h3 a:hover,.left h3 a.on{background:url(../images/liabg.gif) no-repeat; color:#fff; text-decoration:none;}
@@ -77,7 +77,7 @@ input, select, teatarea { font:12px Arial, Helvetica, sans-serif; }
 .right { padding-right:20px; min-height:450px; _height:450px;}
 .current { padding-left:20px; line-height:34px; color:#494a4c; background:url(../images/icon.png) no-repeat 0 -315px;}
 .current a {color:#494a4c;}
-.rightCont { border:1px solid #ddd; padding:10px 30px; background:#fff;}
+.rightCont { border:1px solid #ddd; padding:10px 30px; background:#fff; height: 800px;}
 .rightCont .title { padding-bottom:10px; border-bottom:2px solid #99c7f4;}
 .rightCont .title li { position:relative; float:left; border-left:1px solid #ddd;}
 .rightCont .title li.action { float:right; border:none;}

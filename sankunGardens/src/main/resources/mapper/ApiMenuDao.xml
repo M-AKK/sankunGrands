@@ -6,17 +6,25 @@
 
 <mapper namespace="com.akk.dao.ApiMenuDao">
 
-    <!--<resultMap type="ApiMenu" id="MenuResultMap">
-        <id column="id" property="id" />
-        <id column="name" property="name" />
-        <id column="url" property="url" />
-        <id column="parent_id" property="parentId" />
-        <id column="order_num" property="orderNum" />
-    </resultMap>-->
-
 
     <select id="getMenuList" resultType="ApiMenu">
-        select t.id,t.name,t.url,t.parent_id,t.order_num from api_menu t order by t.order_num
+        select t.id,t.name,t.url,t.parent_id,t.order_num,t.link from api_menu t order by t.order_num
+    </select>
+
+    <select id="getFmenu" resultType="String">
+        SELECT t.name from api_menu t WHERE id=#{id}
+    </select>
+
+    <select id="getZmenu" resultType="String">
+        SELECT t.name from api_menu t WHERE parent_id=#{parent_id} and order_num=#{order_num}
+    </select>
+
+    <select id="getFApiMenuList" resultType="ApiMenu">
+        SELECT t.name from api_menu t WHERE parent_id=0
+    </select>
+
+    <select id="getZApiMenuList" resultType="ApiMenu">
+        SELECT t.name from api_menu t WHERE parent_id!=0
     </select>
 
 </mapper>

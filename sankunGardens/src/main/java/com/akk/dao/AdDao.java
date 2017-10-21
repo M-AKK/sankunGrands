@@ -27,6 +27,8 @@ public interface AdDao {
      * @return 广告对象
      */
     Ad selectById(Long id);
+
+    List<Ad> selectAll();
     
     /**
      * 根据主键修改

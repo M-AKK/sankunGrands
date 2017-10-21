@@ -18,6 +18,19 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!--字符过滤器-->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <!--对于提交的是文件类的表单，先过滤一遍-->
     <filter>
@@ -55,8 +68,8 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:springmvc/springmvc.xml</param-value>
         </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
         <!-- 第一种：*.action可以访问.action结尾，由DispatcherServlet进行解析
@@ -78,5 +91,15 @@
       <include-prelude>/WEB-INF/jsp/system/common.jsp</include-prelude>
     </jsp-property-group>
   </jsp-config>
+
+    <!--跨域过滤器-->
+    <filter>
+        <filter-name>cors</filter-name>
+        <filter-class>com.akk.Filter.CorsFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 </web-app>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -33,9 +33,7 @@
 								</td>
 	                            <td style="text-align: right;" width="150">
 	                            	<input class="tabSub" value="查询" onclick="search('1');" type="button"/>&nbsp;&nbsp;&nbsp;&nbsp;
-
-	                            		<input class="tabSub" value="添加" onclick="location.href='${basePath}/ad/addInit'" type="button"/>
-
+									<input class="tabSub" value="添加" onclick="location.href='${basePath}/ad/addInit'" type="button"/>
 	                            </td>
 	       					</tr>
 						</tbody>
@@ -46,7 +44,7 @@
 								<tr>
 								    <th>序号</th>
 								    <th>标题</th>
-								    <th>链接地址</th>
+								    <th>文件名</th>
 									<th>分类</th>
 									<th>权重</th>
 								    <th>操作</th>
@@ -55,7 +53,7 @@
 									<tr>
 										<td>${s.index + 1}</td>
 										<td>${item.title}</td>
-										<td>${item.link}</td>
+										<td>${item.imgFileName}</td>
 										<td>${item.imgGroup.name}</td>
 										<td>${item.weight}</td>
 										<td>

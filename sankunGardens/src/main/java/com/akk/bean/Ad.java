@@ -13,8 +13,9 @@ public class Ad extends BaseBean {
     private Long id;
     private String title;
     private String imgFileName;
-    private String link;
+    //private String link;
     private Long weight;
+    private Long imgGroupId;
     //另一张表的
     private ImgGroup imgGroup;
 }

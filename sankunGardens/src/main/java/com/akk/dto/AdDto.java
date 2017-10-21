@@ -15,5 +15,4 @@ public class AdDto extends Ad {
     private String img;
     //Springmvc提供的接收文件的属性，用来接收前端的文件
     private MultipartFile imgFile;
-
 }

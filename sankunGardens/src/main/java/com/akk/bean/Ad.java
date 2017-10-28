@@ -6,6 +6,7 @@ import lombok.Data;
 
 /**
  *图片列表实体
+ * @author KHM
  */
 @JsonInclude(Include.NON_NULL)
 @Data

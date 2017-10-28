@@ -15,7 +15,7 @@ public interface ArticleService {
     List<ArticleVo> searchByPage(ArticleDto articleDto);
 
     //修改初始化使用
-    ArticleDto getById(Long id);
+    ArticleVo getById(Long id);
 
     //根据父栏目查询文章
     List<ArticleVo> searchFlanmuByPage(ArticleDto articleDto, Long fid);

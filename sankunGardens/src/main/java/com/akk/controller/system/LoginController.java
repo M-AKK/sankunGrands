@@ -67,7 +67,7 @@ public class LoginController {
 			session.setAttribute(SessionKeyConst.USER_INFO, userDto);
 			GroupDto groupDto = groupService.getByIdWithMenu(userDto.getGroupId());
 			//设置用户能访问的菜单列表
-			session.setAttribute(SessionKeyConst.MENU_INFO,groupDto.getMenuDtoList());
+			session.setAttribute(SessionKeyConst.MENU_INFO, groupDto.getMenuDtoList());
 			/*session.setAttribute(SessionKeyConst.ACTION_INFO, groupDto.getActionDtoList());*/
 			return "redirect:/index";//使用重定向的方法
 		}

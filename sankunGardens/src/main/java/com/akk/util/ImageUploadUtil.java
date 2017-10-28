@@ -23,13 +23,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 public class ImageUploadUtil {
 
 
-    //加载绝对路径
-    @Value("${adImage.savePath}")
-    private static String adImageSavePath;
-    //访问路径
-    @Value("${adImage.url}")
-    private static String adImageUrl;
-
     // 图片类型
     private static List<String> fileTypes = new ArrayList<String>();
 
@@ -46,13 +39,13 @@ public class ImageUploadUtil {
      *
      * @Title upload
      * @param request
-     * @param DirectoryName
+     * @param adImageSavePath
      *            文件上传目录：比如upload(无需带前面的/) upload/news ..
      * @return
      * @throws IllegalStateException
      * @throws IOException
      */
-    public static String upload(HttpServletRequest request, String DirectoryName) throws IllegalStateException, IOException {
+    public static String upload(HttpServletRequest request, String adImageSavePath) throws IllegalStateException, IOException {
 
         // 创建一个通用的多部分解析器
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession()
@@ -83,9 +76,9 @@ public class ImageUploadUtil {
                             continue;
                         }
                         // 获得上传路径的绝对路径地址(/upload)-->
-                        String realPath = request.getSession().getServletContext().getRealPath("/" + DirectoryName);
-                        //String realPath = adImageSavePath;
-                        System.out.println(realPath);
+                        //String realPath = request.getSession().getServletContext().getRealPath("/" + DirectoryName);
+                        String realPath = adImageSavePath;
+                        System.out.println("realPath" + realPath);
                         // 如果路径不存在，则创建该路径
                         File realPathDirectory = new File(realPath);
                         if (realPathDirectory == null || !realPathDirectory.exists()) {
@@ -93,10 +86,9 @@ public class ImageUploadUtil {
                         }
                         // 重命名上传后的文件名 111112323.jpg
                         fileName = System.currentTimeMillis() + "_" + originalFilename;
-                        //fileName = DateUtil.format(new Date(), DateUtil.DATE_FORMAT_1) + suffix;
                         // 定义上传路径 .../upload/111112323.jpg
                         File uploadFile = new File(realPathDirectory + "\\" + fileName);
-                        System.out.println(uploadFile);
+                        System.out.println("uploadFile" + uploadFile);
                         file.transferTo(uploadFile);
                     }
                 }
@@ -114,18 +106,18 @@ public class ImageUploadUtil {
      * @Title ckeditor
      * @param request
      * @param response
-     * @param DirectoryName
+     * @param adImageSavePath
      *            文件上传目录：比如upload(无需带前面的/) upload/..
      * @throws IOException
      */
-    public static void ckeditor(HttpServletRequest request, HttpServletResponse response, String DirectoryName)
+    public static void ckeditor(HttpServletRequest request, HttpServletResponse response, String adImageSavePath, String adImageUrl)
             throws IOException {
-        String fileName = upload(request, DirectoryName);
+        String fileName = upload(request, adImageSavePath);
         // 结合ckeditor功能
         // imageContextPath为图片在服务器地址，如upload/123.jpg,非绝对路径
-        String imageContextPath = request.getContextPath() + "/" + DirectoryName + "/" + fileName;
-        System.out.println(imageContextPath);
-        //String imageContextPath = adImageUrl + fileName;
+        //String imageContextPath = request.getContextPath()+ "/" + DirectoryName + "/" + fileName;
+        String imageContextPath = adImageUrl + fileName;
+        System.out.println("imageContextPath" + imageContextPath);
         response.setContentType("text/html;charset=UTF-8");
         String callback = request.getParameter("CKEditorFuncNum");
         PrintWriter out = response.getWriter();
@@ -137,77 +129,3 @@ public class ImageUploadUtil {
     }
 
 }
-
-
-   /* Map<String,Object> map = new HashMap<String, Object>();
-    String realName = null;
-    String uuidName = null;
-    String realPath = null;
-
-
-    String fileName = System.currentTimeMillis() + "_" + file1.getOriginalFilename();
-
-    File file = new File(adImageSavePath + fileName);
-
-    File fileFolder = new File(adImageSavePath);//new一个这个文件夹
-            if (!fileFolder.exists()) {//判断这个文件夹是否存在
-                    fileFolder.mkdirs();//不存在就生成一个这个文件夹
-                    }
-                    try {
-                    file1.transferTo(file);
-                    //Image image  = new Image();
-                    //文件原来的名称
-                    realName = file1.getOriginalFilename();
-                    //得到这个文件的uuidname
-                    //uuidName = this.getUUIDFileName(file.getOriginalFilename());
-                    //图片保存的工程
-                    // realPath = request.getServletContext().getRealPath("/images");
-                    //真实路径
-                    //String roolPath = request.getSession().getServletContext().getRealPath("/");
-            *//*image.setName(realName);
-            image.setUrl(roolPath);
-            image.setUuidname(uuidName);
-
-            //得到文件的输入流
-            InputStream in = new BufferedInputStream(file.getInputStream());
-            //获得文件的输出流
-            OutputStream out = new BufferedOutputStream(new FileOutputStream(new File(realPath,uuidName)));
-
-            IOUtils.copy(in, out);
-            in.close();
-            out.close();
-            //将图片信息传递到我的数据库当中
-            int flag = imageService.insertImage(image);*//*
-
-                    //if(flag!=0){
-                    map.put("state", "SUCCESS");// UEDITOR的规则:不为SUCCESS则显示state的内容
-                    map.put("url",adImageSavePath+fileName);         //能访问到你现在图片的路径
-                    map.put("title","123");
-                    map.put("original","realName" );
-                    //}
-                    } catch (IOException e) {
-
-                    map.put("state", "文件上传失败!"); //在此处写上错误提示信息，这样当错误的时候就会显示此信息
-                    map.put("url","");
-                    map.put("title", "");
-                    map.put("original", "");
-                    e.printStackTrace();
-                    }
-                    return map;
-                    }
-
-
-//下面是我的两个方法，取的uuidname防止文件同名问题
-private String getExtName(String s, char split) {
-        int i = s.lastIndexOf(split);
-        int leg = s.length();
-        return i > 0 ? (i + 1) == leg ? " " : s.substring(i+1, s.length()) : " ";
-        }
-
-private String getUUIDFileName(String fileName){
-        UUID uuid = UUID.randomUUID();
-        StringBuilder sb = new StringBuilder(100);
-        sb.append(uuid.toString()).append(".").append(this.getExtName(fileName, '.'));
-        return sb.toString();
-//        }
-*/

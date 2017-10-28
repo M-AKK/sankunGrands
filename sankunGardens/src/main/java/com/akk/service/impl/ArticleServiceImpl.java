@@ -144,10 +144,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDto getById(Long id) {
-        ArticleDto result = new ArticleDto();
+    public ArticleVo getById(Long id) {
+        ArticleVo result = new ArticleVo();
         Article article = articleDao.selectById(id);
         BeanUtils.copyProperties(article, result);
+        result.setUpdateTime(DateUtil.dateFormat2(article.getUpdateTime(), 0, 16));
         result.setFname(apiMenuDao.getFmenu(article.getFid()));
         result.setZname(apiMenuDao.getZmenu(article.getFid(), article.getZid()));
         return result;
@@ -155,9 +156,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public boolean remove(Long id) {
-        //Article article = articleDao.selectById(id);
         int deleteRows = articleDao.delete(id);
-        //FileUtil.delete(adImageSavePath + ad.getImgFileName());
         return deleteRows == 1;
     }
 

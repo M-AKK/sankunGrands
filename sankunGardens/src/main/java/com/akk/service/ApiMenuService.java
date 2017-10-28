@@ -20,4 +20,10 @@ public interface ApiMenuService {
 
     //获取所有子栏目列表
     List<ApiMenu> getApiZMenuList();
+
+    boolean modify(Long id, String name, Integer orderNum);
+
+    boolean remove(Long id);
+
+    boolean add(ApiMenu apiMenu);
 }

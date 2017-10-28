@@ -10,7 +10,7 @@ import java.util.*;
 
 public class DateUtil {
 
-    public static void main(String args[])throws Exception{
+    public static void main(String[] args)throws Exception{
         List<String> result = getBetweenDates(DateUtil.StringToDate("2017-10-1 21:08"),DateUtil.StringToDate("2017-10-8 21:08"));
         for(int i=0; i<result.size(); i++){
             System.out.println(result.get(i));

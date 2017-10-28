@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.akk.dao.ArticleDao">
+
+    <select id="selectByPage" resultType="Article">
+        select a.id,a.author,a.title,a.content,a.fid,a.zid,a.weight,a.imgurl,a.update_time from api_articlelist a
+        <where>
+            <if test="title != null and title != ''">
+                a.title like '%' #{title} '%'
+            </if>
+        </where>
+        ORDER BY a.update_time DESC
+    </select>
+
+    <select id="selectById" resultType="Article">
+        select a.id,a.author,a.title,a.content,a.fid,a.zid,a.weight,a.imgurl,a.update_time from api_articlelist a
+        where a.id=#{_parameter}
+    </select>
+
+    <select id="selectByfId" resultType="Article">
+        select a.id,a.author,a.title,a.content,a.fid,a.zid,a.weight,a.imgurl,a.update_time from api_articlelist a
+        where a.fid=#{fid}
+        ORDER BY a.weight,a.update_time DESC
+    </select>
+
+    <select id="selectByfzId" resultType="Article">
+        select a.id,a.author,a.title,a.content,a.fid,a.zid,a.weight,a.imgurl,a.update_time from api_articlelist a
+        where a.fid=#{fid} AND a.zid=#{zid}
+        ORDER BY a.weight,a.update_time DESC
+    </select>
+
+    <delete id="delete">
+        delete from api_articlelist where id=#{_parameter}
+    </delete>
+
+    <update id="update">
+        update api_articlelist
+        <set>
+            <if test="author != null">
+                author = #{author},
+            </if>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="fid != null">
+                fid = #{fid},
+            </if>
+            <if test="zid != null">
+                zid = #{zid},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="imgurl != null">
+                imgurl = #{imgurl},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <insert id="insert">
+        insert into api_articlelist(author,title,content,fid,zid,weight,imgurl)
+        values(#{author},#{title},#{content},#{fid},#{zid},#{weight},#{imgurl})
+    </insert>
+
+</mapper>

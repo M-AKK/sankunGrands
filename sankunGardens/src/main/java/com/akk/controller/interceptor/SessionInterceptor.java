@@ -18,6 +18,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 	 * @return true:执行下一个拦截器，直到所有拦截器都执行完，再执行被拦截的Controller
 	 *         false:从当前的拦截器往回执行所有拦截器的afterCompletion(),再退出拦截器链
 	 */
+	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		//1.判断session中是否有user信息
 		if (request.getSession().getAttribute(SessionKeyConst.USER_INFO) != null) {
@@ -36,7 +37,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 	/**
 	 * 在进入Handler方法之后，返回ModelAndView之前执行
 	 */
-
+	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
 		// TODO Auto-generated method stub
@@ -46,7 +47,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 	/**
 	 * 在Handler方法执行完之后执行
 	 */
-
+	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		// TODO Auto-generated method stub

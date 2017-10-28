@@ -1,8 +1,13 @@
 package com.akk.bean;
 
+import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.Date;
+
 /**
  * 用户表实体
  */
+@DynamicUpdate
 public class User {
 	
 	private Long id;
@@ -10,8 +15,17 @@ public class User {
 	private String password;
 	private String chName;
 	private Long groupId;
+	private Date updateTime;
 
-	public String getName() {
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getName() {
 		return name;
 	}
 

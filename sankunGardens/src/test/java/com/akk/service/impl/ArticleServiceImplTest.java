@@ -33,4 +33,10 @@ public class ArticleServiceImplTest {
         Assert.assertNotNull(articleVoList);
     }
 
+    @Test
+    public void getById() throws Exception {
+        ArticleVo ArticleVo = articleService.getById(new Long(1));
+        log.info("【后端分页的文章】result={}", JsonUtil.toJson(ArticleVo));
+        Assert.assertNotNull(ArticleVo);
+    }
 }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akk.dao.AdDao">
+    
+    <resultMap type="Ad" id="AdMap">
+        <!--配置映射的信息-->
+        <!--column="id"代表数据库中唯一标识的列，property="id"代表要将column映射到Bean中的属性中-->
+        <id column="id" property="id" />
+        <result column="title" property="title"/>
+        <result column="img_file_name" property="imgFileName"/>
+        <result column="weight" property="weight"/>
+		<result column="img_group_id" property="imgGroupId"/>
+        
+        <!--配置映射的关联表的信息-->
+        <association property="imgGroup" javaType="ImgGroup">
+            <result column="name" property="name"/>
+        </association>
+
+    </resultMap>
+
+	<insert id="insert">
+		insert into api_imglist(title,img_file_name,weight)
+		 values(#{title},#{imgFileName},#{weight})
+	</insert>
+	
+	<!--<select id="selectByPage" resultType="Ad">
+		select id,title,img_file_name,link,weight from api_imglist
+		<where>
+			<if test="title != null and title != ''">
+				title like '%' #{title} '%'
+			</if>
+		</where>
+		order by weight desc,id
+	</select>-->
+
+	<select id="selectByPage" resultMap="AdMap">
+		select a.id,a.title,a.img_file_name,a.weight,a.img_group_id,g.name from api_imglist a
+		LEFT JOIN img_group g ON a.img_group_id = g.id
+		<where>
+			<if test="title != null and title != ''">
+				a.title like '%' #{title} '%'
+			</if>
+		</where>
+		ORDER BY a.weight DESC
+	</select>
+
+	<select id="selectAll" resultMap="AdMap">
+		select a.id,a.title,a.img_file_name,a.weight,a.img_group_id,g.name
+		from api_imglist a
+		LEFT JOIN img_group g ON a.img_group_id = g.id
+		ORDER BY a.weight desc
+	</select>
+
+
+	<select id="selectById" resultMap="AdMap">
+		select a.id,a.title,a.img_file_name,a.weight,a.img_group_id,g.name
+		from api_imglist a
+		LEFT JOIN img_group g ON a.img_group_id = g.id
+		where a.id=#{_parameter}
+	</select>
+	
+	<update id="update">
+		update api_imglist
+		<set>
+			<if test="title != null">
+				title = #{title},
+			</if>
+			<if test="imgFileName != null">
+				img_file_name = #{imgFileName},
+			</if>
+			<if test="weight != null">
+				weight = #{weight},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="delete">
+		delete from api_imglist where id=#{_parameter}
+	</delete>
+
+</mapper>

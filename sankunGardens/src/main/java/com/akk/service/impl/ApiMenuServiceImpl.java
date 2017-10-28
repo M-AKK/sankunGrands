@@ -61,4 +61,26 @@ public class ApiMenuServiceImpl implements ApiMenuService {
     public List<ApiMenu> getApiZMenuList(){
         return apiMenuDao.getZApiMenuList();
     }
+
+    @Override
+    public boolean modify(Long id, String name, Integer orderNum) {
+        //ApiMenu apiMenu = new ApiMenu();
+        ApiMenu apiMenu = apiMenuDao.selectById(id);
+        apiMenu.setName(name);
+        apiMenu.setOrderNum(orderNum);
+        int updateCount = apiMenuDao.update(apiMenu);
+        return updateCount == 1;
+    }
+
+    @Override
+    public boolean remove(Long id) {
+        int deleteCount = apiMenuDao.delete(id);
+        return deleteCount == 1;
+    }
+
+    @Override
+    public boolean add(ApiMenu apiMenu) {
+        int addCount = apiMenuDao.insert(apiMenu);
+        return addCount == 1;
+    }
 }

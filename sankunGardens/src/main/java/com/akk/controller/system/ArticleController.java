@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
 @Controller
 @RequestMapping("/articles")
 public class ArticleController {
@@ -41,19 +40,9 @@ public class ArticleController {
         return ResultVOUtil.success(apiMenuService.getMenuList());
     }
 
-	/**
-	 * 文章查询按钮
-	 */
-    /*@RequestMapping("/search")//这里的传过来的是输入的有标题的
-	public String search(Model model, ArticleDto articleDto) {
-        System.out.println("文章标题"+articleDto.getTitle());
-        model.addAttribute("list", articleService.searchByPage(articleDto));
-        model.addAttribute("searchParam", articleDto);
-		return "/content/ArticleList";
-	}
-    */
+
     /**
-     * 根据父节点查找父栏目
+     * 根据父节点查找父栏目,暂没用到
      * @return
      */
     @RequestMapping(value="/{fid}",method = RequestMethod.GET)
@@ -84,7 +73,8 @@ public class ArticleController {
      * 新增页初始化
      */
     @RequestMapping("/addInit")
-    public String addInit(Model model) {
+    public String addInit(Model model, @RequestParam("id") Long id) {
+        model.addAttribute("modifyObj", articleService.getById(id));
         return "/content/ArticleAdd";
     }
 
@@ -94,7 +84,6 @@ public class ArticleController {
      */
     @RequestMapping(value = "/add")
     public String add(Model model, ArticleDto articleDto){
-        //System.out.println("标题:"+articleDto.getTitle()+"内容："+articleDto.getContent());
         if (articleService.add(articleDto)) {
             model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.ADD_SUCCESS);
         } else {

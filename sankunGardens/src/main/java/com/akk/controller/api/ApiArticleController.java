@@ -3,14 +3,12 @@ package com.akk.controller.api;
 import com.akk.Vo.ArticleVo;
 import com.akk.Vo.ResultVO;
 import com.akk.dto.ArticleDto;
+import com.akk.service.ApiMenuService;
 import com.akk.service.ArticleService;
 import com.akk.util.ResultVOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,15 +24,24 @@ public class ApiArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    private ApiMenuService apiMenuService;
+
+    @RequestMapping(value = "/menu")
+    @ResponseBody
+    public ResultVO getMenu() {
+        return ResultVOUtil.success(apiMenuService.getMenuList());
+    }
+
     /**
      * 根据父节点查找父栏目
+     * 暂不需要
      * @return
      */
     @RequestMapping(value="/{fid}",method = RequestMethod.GET)
     public ResultVO flanmu(@PathVariable("fid") Long fid,
                            ArticleDto articleDto){
         List<ArticleVo> articleVoList = articleService.ApisearchFlanmu(articleDto, fid);
-
         return ResultVOUtil.success(articleVoList);
     }
 
@@ -50,5 +57,16 @@ public class ApiArticleController {
                           ArticleDto articleDto){
         List<ArticleVo> articleVoList = articleService.ApisearchZlanmu(articleDto, fid, zid);
         return ResultVOUtil.success(articleVoList);
+    }
+
+    /**
+     * 根据id查找文章
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public ResultVO findArticle(@PathVariable("id") Long id){
+        ArticleVo articleVo = articleService.getById(id);
+        return ResultVOUtil.success(articleVo);
     }
 }

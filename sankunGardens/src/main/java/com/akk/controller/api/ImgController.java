@@ -31,4 +31,5 @@ public class ImgController {
         List<AdDto> adDtoList = adService.selectAll();
         return ResultVOUtil.success(adDtoList);
     }
+
 }

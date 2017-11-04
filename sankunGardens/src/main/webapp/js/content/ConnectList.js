@@ -15,6 +15,12 @@ function search(currentPage) {
     $("#mainForm").submit();
 }
 
+function add1(id) {
+    $("#id").val(id);
+    $("#mainForm").attr("action",$("#basePath").val() + "/connect/addInit");
+    $("#mainForm").submit();
+}
+
 function modifyInit(id) {
     $("#id").val(id);
     $("#mainForm").attr("action",$("#basePath").val() + "/connect/modifyInit");

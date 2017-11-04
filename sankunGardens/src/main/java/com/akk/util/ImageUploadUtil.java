@@ -117,7 +117,7 @@ public class ImageUploadUtil {
         // imageContextPath为图片在服务器地址，如upload/123.jpg,非绝对路径
         //String imageContextPath = request.getContextPath()+ "/" + DirectoryName + "/" + fileName;
         String imageContextPath = adImageUrl + fileName;
-        System.out.println("imageContextPath" + imageContextPath);
+        //System.out.println("imageContextPath" + imageContextPath);
         response.setContentType("text/html;charset=UTF-8");
         String callback = request.getParameter("CKEditorFuncNum");
         PrintWriter out = response.getWriter();

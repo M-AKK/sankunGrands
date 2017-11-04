@@ -9,6 +9,7 @@
         <!--column="id"代表数据库中唯一标识的列，property="id"代表要将column映射到Bean中的属性中-->
         <id column="id" property="id" />
         <result column="title" property="title"/>
+		<result column="description" property="description"/>
         <result column="img_file_name" property="imgFileName"/>
         <result column="weight" property="weight"/>
 		<result column="img_group_id" property="imgGroupId"/>
@@ -21,8 +22,8 @@
     </resultMap>
 
 	<insert id="insert">
-		insert into api_imglist(title,img_file_name,weight)
-		 values(#{title},#{imgFileName},#{weight})
+		insert into api_imglist(title,description,img_file_name,weight)
+		 values(#{title},#{description},#{imgFileName},#{weight})
 	</insert>
 	
 	<!--<select id="selectByPage" resultType="Ad">
@@ -36,7 +37,7 @@
 	</select>-->
 
 	<select id="selectByPage" resultMap="AdMap">
-		select a.id,a.title,a.img_file_name,a.weight,a.img_group_id,g.name from api_imglist a
+		select a.id,a.title,a.description,a.img_file_name,a.weight,a.img_group_id,g.name from api_imglist a
 		LEFT JOIN img_group g ON a.img_group_id = g.id
 		<where>
 			<if test="title != null and title != ''">
@@ -47,7 +48,7 @@
 	</select>
 
 	<select id="selectAll" resultMap="AdMap">
-		select a.id,a.title,a.img_file_name,a.weight,a.img_group_id,g.name
+		select a.id,a.title,a.description,a.img_file_name,a.weight,a.img_group_id,g.name
 		from api_imglist a
 		LEFT JOIN img_group g ON a.img_group_id = g.id
 		ORDER BY a.weight desc
@@ -55,7 +56,7 @@
 
 
 	<select id="selectById" resultMap="AdMap">
-		select a.id,a.title,a.img_file_name,a.weight,a.img_group_id,g.name
+		select a.id,a.title,a.description,a.img_file_name,a.weight,a.img_group_id,g.name
 		from api_imglist a
 		LEFT JOIN img_group g ON a.img_group_id = g.id
 		where a.id=#{_parameter}
@@ -66,6 +67,9 @@
 		<set>
 			<if test="title != null">
 				title = #{title},
+			</if>
+			<if test="description != null">
+				description = #{description},
 			</if>
 			<if test="imgFileName != null">
 				img_file_name = #{imgFileName},

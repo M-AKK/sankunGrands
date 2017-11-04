@@ -25,7 +25,6 @@
 		        <div class="persongRightTit" style="width:480px;">&nbsp;&nbsp;修改密码</div>
 		        <div class="persongRigCon">
 		            <form id="redisAddOrEditForm" name="redisAddOrEditForm" action="${basePath}/user/updatemima" method="post">
-
 		                <table class="x-form-table">
 		                    <tbody>
 		                    <tr class="line">
@@ -61,7 +60,6 @@
 		</div>
 		
 		<form method="post" action="${basePath}/session" id="mainForm">
-			<input type="hidden" name="_method" value="DELETE"/>
 		    <div id="header">
 		        <div class="iheader">
 		            <div class="logo"><a href="#"><img src="" alt="" height="88px" width="99px"/></a> </div>

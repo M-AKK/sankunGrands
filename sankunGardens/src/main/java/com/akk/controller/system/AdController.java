@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 图片列表
+ * @author KHM
  */
 @Controller
 @RequestMapping("/ad")
@@ -57,7 +58,8 @@ public class AdController {
 		} else {
 			model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.REMOVE_FAIL);
 		}
-		return "forward:/ad";//这是跳转到方法
+		//这是跳转到方法
+		return "forward:/ad";
 	}
 
 	/**
@@ -74,6 +76,7 @@ public class AdController {
 	 */
 	@RequestMapping(value = "/add")
 	public String add(AdDto adDto, Model model) {
+        model.addAttribute("imggroup", imgGroupService.select());
 		if (adService.add(adDto)) {
 			model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.ADD_SUCCESS);
 		} else {
@@ -87,8 +90,8 @@ public class AdController {
 	 */
 	@RequestMapping(value = "/modifyInit", method = RequestMethod.POST)
 	public String modifyInit(Model model, @RequestParam("id") Long id) {
+        model.addAttribute("imggroup", imgGroupService.select());
 		model.addAttribute("modifyObj", adService.getById(id));
-		model.addAttribute("imggroup", imgGroupService.select());
 		return "/content/adModify";
 	}
 
@@ -97,6 +100,7 @@ public class AdController {
 	 */
 	@RequestMapping("/modify")
 	public String modify(Model model, AdDto adDto) {
+        model.addAttribute("imggroup", imgGroupService.select());
 		model.addAttribute("modifyObj", adDto);
 		if (adService.modify(adDto)) {
 			model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.MODIFY_SUCCESS);

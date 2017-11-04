@@ -40,14 +40,19 @@
 							<td width="30%">
 								<select name="imgGroupId">
 									<c:forEach items="${imggroup}" var="item">
-										<c:if test="${item.id == modifyObj.imgGroupId}">selected="selected"</c:if>
 										<option value="${item.id}">${item.name}</option>
 									</c:forEach>
 								</select>
 							</td>
 							<td align="right" width="10%">权重(值越大排名越靠前)<font color="red">*</font>：</td>
 							<td width="30%">
-								<input id="weight" name="weight"  class="allInput" style="width:100%;" type="text"/>
+								<input id="weight" name="weight" value=1 class="allInput" style="width:100%;" type="text"/>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="10%">描述<font color="red">*</font>：</td>
+							<td width="30%">
+								<input id="description" name="description" class="allInput" style="width:100%;" type="text"/>
 							</td>
 						</tr>
 					  </tbody>

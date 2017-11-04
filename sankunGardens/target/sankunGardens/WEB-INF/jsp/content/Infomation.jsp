@@ -14,6 +14,7 @@
         <script src="${basePath}/js/common/validation/jquery.validate.js" type="text/javascript"></script>
 		<script src="${basePath}/js/common/validation/messages_zh.js" type="text/javascript"></script>
         <script src="${basePath}/js/common/common.js" type="text/javascript"></script>
+		<script type="text/javascript" src="${basePath}/js/content/Infomation.js"></script>
         <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
         <style type="text/css">
 
@@ -42,7 +43,7 @@
         </style>
     </head>
     <body style="background: #e1e9eb;">
-	<form id="mainform" name="mainform" action="${basePath}/user/updateinfo" method="post" >
+	<form id="mainform"  action="${basePath}/user/updateinfo" method="post" enctype="multipart/form-data" >
 		<input type="hidden" id="message" value="${pageCode.msg}"/>
 		<div class="right">
 			<div class="current">当前位置：<a href="###">系统设置</a> &gt; 修改个人信息</div>
@@ -52,7 +53,7 @@
 					<tr>
 						<td>用户名</td>
                         <td width="40%">
-                            <input name="title" value="${user.name}" class="allInput" style="width:100%;" type="text"/>
+                            <input name="username" value="${user.name}" class="allInput" style="width:100%;" type="text"/>
                         </td>
 					</tr>
 					<tr>
@@ -70,17 +71,17 @@
 					<tr>
 						<td>管理员名称</td>
 						<td>
-                            <input name="title" value="${user.chName}" class="allInput" style="width:100%;" type="text"/>
+                            <input name="chName" value="${user.chName}" class="allInput" style="width:100%;" type="text"/>
 						</td>
 					</tr>
                     <tr>
                         <td class="left"></td>
                         <td class="submit">
-                            <input id="submitVal" class="tabSub" value="提交" onclick="modify()" type="button"/>
+                            <input class="tabSub" value="提交" onclick="modify()" type="button"/>
                         </td>
                     </tr>
-
 				</table>
+
 			</div>
 		</div>
 	</form>

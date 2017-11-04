@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author KHM
+ */
 @Controller
 @RequestMapping("/articles")
 public class ArticleController {
@@ -28,7 +31,6 @@ public class ArticleController {
 	 */
 	@RequestMapping
 	public String init(Model model, ArticleDto articleDto) {
-        //System.out.println("文章标题"+articleDto.getTitle());
 		model.addAttribute("list", articleService.searchByPage(articleDto));
 		model.addAttribute("searchParam", articleDto);
 		return "/content/ArticleList";
@@ -48,7 +50,6 @@ public class ArticleController {
     @RequestMapping(value="/{fid}",method = RequestMethod.GET)
 	public String flanmu(@PathVariable("fid") Long fid,
                          Model model, ArticleDto articleDto){
-        //System.out.println(fid);
         model.addAttribute("list", articleService.searchFlanmuByPage(articleDto, fid));
         model.addAttribute("searchParam", articleDto);
         return "/content/ArticleList";
@@ -65,7 +66,11 @@ public class ArticleController {
     @RequestMapping(value="/{fid}/{zid}",method = RequestMethod.GET)
     public String zlanmu(@PathVariable("fid") Long fid, @PathVariable("zid") Long zid,
                          Model model, ArticleDto articleDto){
-        model.addAttribute("list", articleService.searchZlanmuByPage(articleDto, fid, zid));
+        if(articleService.searchZlanmuByPage(articleDto, fid, zid)!=null){
+            model.addAttribute("list", articleService.searchZlanmuByPage(articleDto, fid, zid));
+        } else {
+            model.addAttribute("list", null);
+        }
         return "/content/ArticleList";
     }
 
@@ -74,7 +79,12 @@ public class ArticleController {
      */
     @RequestMapping("/addInit")
     public String addInit(Model model, @RequestParam("id") Long id) {
-        model.addAttribute("modifyObj", articleService.getById(id));
+        if(id!=null){
+            model.addAttribute("modifyObj", articleService.getById(id));
+        }
+        else {
+            model.addAttribute("modifyObj", null);
+        }
         return "/content/ArticleAdd";
     }
 
@@ -107,9 +117,8 @@ public class ArticleController {
      * @param model
      * @return
      */
-	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
-	public String modify(Model model, @PathVariable("id") Long id, ArticleDto articleDto){
-        articleDto.setId(id);
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modify(Model model, ArticleDto articleDto){
         model.addAttribute("modifyObj", articleDto);
         if (articleService.modify(articleDto)) {
             model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.MODIFY_SUCCESS);

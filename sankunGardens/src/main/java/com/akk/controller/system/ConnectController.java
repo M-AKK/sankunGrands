@@ -4,6 +4,7 @@ import com.akk.constant.PageCodeEnum;
 import com.akk.dto.ArticleDto;
 import com.akk.service.ApiMenuService;
 import com.akk.service.ArticleService;
+import com.akk.service.ImgGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -25,11 +26,13 @@ public class ConnectController {
 	@Autowired
 	private ApiMenuService apiMenuService;
 
-	@RequestMapping
-	public String init(Model model, ArticleDto articleDto) {
-		//System.out.println("文章标题"+articleDto.getTitle());
-		model.addAttribute("list", articleService.ApisearchZlanmu(articleDto, new Long(19), new Long(1)));
+    @Autowired
+    private ImgGroupService imgGroupService;
 
+
+    @RequestMapping
+	public String init(Model model, ArticleDto articleDto) {
+		model.addAttribute("list", articleService.ApisearchZlanmu(articleDto, new Long(19), new Long(1)));
 		return "/content/connentList";
 	}
 
@@ -37,9 +40,12 @@ public class ConnectController {
 	 * 新增页初始化
 	 */
 	@RequestMapping("/addInit")
-	public String addInit(Model model) {
-        model.addAttribute("fmenulist", apiMenuService.getApiFMenuList());
-        model.addAttribute("zmenulist", apiMenuService.getApiZMenuList());
+	public String addInit(Model model, @RequestParam("id") Long id) {
+	    if(id!=null) {
+            model.addAttribute("modifyObj", articleService.getById(id));
+        } else {
+            model.addAttribute("modifyObj", null);
+        }
 		return "/content/connectAdd";
 	}
 
@@ -49,12 +55,11 @@ public class ConnectController {
 	 */
 	@RequestMapping(value = "/add")
 	public String add(Model model, ArticleDto articleDto){
-		System.out.println("标题:"+articleDto.getTitle()+"内容："+articleDto.getContent());
-		if (articleService.add(articleDto)) {
-			model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.ADD_SUCCESS);
-		} else {
-			model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.ADD_FAIL);
-		}
+        if (articleService.add(articleDto)) {
+            model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.ADD_SUCCESS);
+        } else {
+            model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.ADD_FAIL);
+        }
 		return "/content/connectAdd";
 	}
 
@@ -64,8 +69,7 @@ public class ConnectController {
     @RequestMapping(value = "/modifyInit")
     public String modifyInit(Model model, @RequestParam("id") Long id){
         model.addAttribute("modifyObj", articleService.getById(id));
-        model.addAttribute("fmenulist", apiMenuService.getApiFMenuList());
-        model.addAttribute("zmenulist", apiMenuService.getApiZMenuList());
+        model.addAttribute("menulist", apiMenuService.getMenuList());
         return "/content/connectModify";
     }
 
@@ -74,9 +78,8 @@ public class ConnectController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public String modify(Model model, @PathVariable("id") Long id, ArticleDto articleDto){
-        articleDto.setId(id);
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    public String modify(Model model, ArticleDto articleDto){
         model.addAttribute("modifyObj", articleDto);
         if (articleService.modify(articleDto)) {
             model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.MODIFY_SUCCESS);

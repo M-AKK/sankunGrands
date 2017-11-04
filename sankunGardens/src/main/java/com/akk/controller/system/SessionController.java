@@ -30,7 +30,7 @@ public class SessionController {
 	/**
 	 * 退出系统
 	 */
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(method = RequestMethod.POST)
 	public String signOut() {
 		session.invalidate();
 		return "redirect:/login";

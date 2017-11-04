@@ -40,21 +40,36 @@
 								<td align="right" width="5%">所属父菜单<font color="red">*</font>：</td>
 								<td width="40%">
 									<select id="flanmu" name="fid" onChange="initSubMenu()">
-										<option value="${modifyObj.fid}">${modifyObj.fname}</option>
+										<c:choose>
+											<c:when test="${!empty modifyObj}">
+												<option value="${modifyObj.fid}">${modifyObj.fname}</option>
+											</c:when>
+											<c:otherwise>
+												<option value=""></option>
+											</c:otherwise>
+										</c:choose>
+
 									</select>
 								</td>
 
 								<td align="right" width="15%">所属子菜单<font color="red">*</font>：</td>
 								<td width="40%">
 									<select id="zlanmu" name="zid">
-										<option value="${modifyObj.zid}">${modifyObj.zname}</option>
+                                        <c:choose>
+                                            <c:when test="${!empty modifyObj}">
+                                                <option value="${modifyObj.zid}">${modifyObj.zname}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value=""></option>
+                                            </c:otherwise>
+                                        </c:choose>
 									</select>
 								</td>
 							</tr>
 							<tr>
 								<td align="right" width="5%">权重<font color="red">*</font>：</td>
 								<td width="40%">
-									<input name="weight" class="allInput" style="width:100%;" type="text"/>
+									<input name="weight" class="allInput" value=1 style="width:100%;" type="text"/>
 								</td>
 
 								<td align="right" width="15%">新闻展示图链接<font color="red">*</font>：</td>

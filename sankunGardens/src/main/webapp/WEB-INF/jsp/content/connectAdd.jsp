@@ -35,54 +35,71 @@
             <table class="tab1" width="100%">
                 <tbody>
                 <tr>
-                    <td align="right" width="15%">标题<font color="red">*</font>：</td>
-                    <td width="30%">
-                        <input name="title" class="allInput" style="width:100%;" type="text"/>
+                    <td align="right" width="5%">标题<font color="red">*</font>：</td>
+                    <td width="40%">
+                        <input name="title" class="allInput" style="width:100%;" type="text" />
                     </td>
                     <td align="right" width="15%">作者<font color="red">*</font>：</td>
-                    <td width="30%">
+                    <td width="40%">
                         <input name="author"  class="allInput" style="width:100%;" type="text"/>
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" width="10%">所属父菜单<font color="red">*</font>：</td>
-                    <td width="30%">
-                        <select id="flanmu2" name="fid" onChange="initSubMenu2()">
-                            <OPTION VALUE="fu">父菜单</OPTION>
+                    <td align="right" width="5%">所属父菜单<font color="red">*</font>：</td>
+                    <td width="40%">
+                        <select id="flanmu" name="fid" onChange="initSubMenu2()">
+                            <c:choose>
+                                <c:when test="${!empty modifyObj}">
+                                    <option value="${modifyObj.fid}">${modifyObj.fname}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value=""></option>
+                                </c:otherwise>
+                            </c:choose>
                         </select>
                     </td>
 
-                    <td align="right" width="10%">所属子菜单<font color="red">*</font>：</td>
-                    <td width="30%">
-                        <select id="zlanmu2" name="zid">
-                            <OPTION VALUE="zi">子菜单</OPTION>
+                    <td align="right" width="15%">所属子菜单<font color="red">*</font>：</td>
+                    <td width="40%">
+                        <select id="zlanmu" name="zid">
+                            <c:choose>
+                                <c:when test="${!empty modifyObj}">
+                                    <option value="${modifyObj.zid}">${modifyObj.zname}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value=""></option>
+                                </c:otherwise>
+                            </c:choose>
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" width="10%">权重<font color="red">*</font>：</td>
-                    <td width="30%">
+                    <td align="right" width="5%">权重<font color="red">*</font>：</td>
+                    <td width="40%">
                         <input name="weight" class="allInput" style="width:100%;" type="text"/>
                     </td>
 
-                    <td align="right" width="10%">新闻展示图链接<font color="red">*</font>：</td>
-                    <td width="30%">
-                        <input name="imgurl" class="allInput" style="width:100%;" type="text"/>
+                    <td align="right" width="15%">新闻展示图链接<font color="red">*</font>：</td>
+                    <td width="40%">
+                        <input name="imgurl" class="allInput" style="width:100%;" type="text" placeholder="当为头条文章时添加此项"/>
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" width="15%">内容<font color="red">*</font>：</td>
-                    <td width="75%" colspan="3">
+                    <td align="right" width="5%">内容<font color="red">*</font>：</td>
+                    <td width="95%" colspan="3">
                         <textarea name="content" id="content"  cols="30" rows="10">默认内容...</textarea>
                         <script type="text/javascript" src="${basePath}/ckeditor/ckeditor.js"></script>
                         <script type="text/javascript">
-                            CKEDITOR.replace('content');
+                            CKEDITOR.replace('content', {
+                                    height: 500
+                                }
+                            );
                         </script>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <div style="text-align: center; margin-top: 30px; float: right;">
+            <div style="text-align: center; margin-top: 30px;">
                 <input class="tabSub" value="保     存" type="button" onclick="add();"/>&nbsp;&nbsp;&nbsp;&nbsp;
                 <input class="tabSub" value="返     回" type="button" onclick="goback();"/>
             </div>

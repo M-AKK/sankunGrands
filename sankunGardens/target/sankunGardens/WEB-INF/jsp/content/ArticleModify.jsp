@@ -17,9 +17,11 @@
 		<script type="text/javascript" src="${basePath}/js/content/ArticleModify.js"></script>
 	</head>
 	<body style="background: #e1e9eb;">
-		<form id="mainForm" name="mainForm1" method="post" action="${basePath}/articles/${modifyObj.id}" enctype="multipart/form-data">
+		<form id="mainForm" name="mainForm1" method="post" action="${basePath}/articles/modify" enctype="multipart/form-data">
             <input type="hidden" id="message" value="${pageCode.msg}"/>
-			<input type="hidden" id="menulist" value="${menulist}"/>
+			<input type="hidden" name="fname" value="${modifyObj.fname}"/>
+			<input type="hidden" name="zname" value="${modifyObj.zname}"/>
+			<input type="hidden" name="id" value="${modifyObj.id}"/>
 			<input type="hidden" id="basePath" value="${basePath}"/>
 			<div class="right">
 				<div class="current">当前位置：<a href="###">内容管理</a> &gt; 文章管理</div>

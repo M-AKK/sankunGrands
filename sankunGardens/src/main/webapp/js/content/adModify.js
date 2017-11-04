@@ -3,7 +3,6 @@ $(function() {
 	$("#mainForm").validate({
 		rules : {
 			"title" : "required",
-			"link" : "required",
 			"weight" : {
 				required : true,
 				digits : true,
@@ -11,7 +10,8 @@ $(function() {
 			}
 		},
 		messages : {
-			"title" : "请输入标题！"
+			"title" : "请输入标题！",
+            "weight" : "权重不能为空",
 		}
 	});
 });

@@ -37,7 +37,14 @@
                             </td>
                             <td style="text-align: right;" width="150">
                                 <input class="tabSub" value="查询" onclick="search('1');" type="button"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input class="tabSub" value="添加" onclick="add(${list.get(0).id})" type="button"/>
+                                <c:choose>
+                                    <c:when test="${not empty list}">
+                                        <input class="tabSub" value="添加" onclick="add(${list.get(0).id});" type="button"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input class="tabSub" value="添加" onclick="add();" type="button"/>
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </tr>
                         </tbody>

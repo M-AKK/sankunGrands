@@ -16,7 +16,7 @@ import static com.akk.util.MD5Util.getMD5;
 
 /**
  * 用户信息的操作
- * Created by KHM
+ * @author Created by KHM
  * 2017/10/2 16:32
  */
 @Controller

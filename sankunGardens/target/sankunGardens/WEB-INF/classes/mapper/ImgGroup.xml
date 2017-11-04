@@ -5,6 +5,5 @@
 <mapper namespace="com.akk.dao.ImgGroupDao">
     <select id="select" resultType="ImgGroup">
         select * from img_group
-        order by weight
     </select>
 </mapper>

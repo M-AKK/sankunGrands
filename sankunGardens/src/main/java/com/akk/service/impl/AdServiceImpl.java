@@ -34,17 +34,21 @@ public class AdServiceImpl implements AdService {
 	public boolean add(AdDto adDto) {
 		Ad ad = new Ad();
 		ad.setTitle(adDto.getTitle());
-		//ad.setLink(adDto.getLink());
 		ad.setWeight(adDto.getWeight());
+		ad.setImgGroupId(adDto.getImgGroupId());
 		if (adDto.getImgFile() != null && adDto.getImgFile().getSize() > 0) {
 			String fileName = System.currentTimeMillis() + "_" + adDto.getImgFile().getOriginalFilename();
 			File file = new File(adImageSavePath + fileName);
-			File fileFolder = new File(adImageSavePath);//new一个这个文件夹
-			if (!fileFolder.exists()) {//判断这个文件夹是否存在
-				fileFolder.mkdirs();//不存在就生成一个这个文件夹
+			//new一个这个文件夹
+			File fileFolder = new File(adImageSavePath);
+			//判断这个文件夹是否存在
+			if (!fileFolder.exists()) {
+				//不存在就生成一个这个文件夹
+				fileFolder.mkdirs();
 			}
 			try {
-				adDto.getImgFile().transferTo(file);//transferTo：把imgFileName转移到一个文件，但首先你得自己创建一个文件
+				//transferTo：把imgFileName转移到一个文件，但首先你得自己创建一个文件
+				adDto.getImgFile().transferTo(file);
 				ad.setImgFileName(fileName);
 				adDao.insert(ad);
 				return true;
@@ -57,6 +61,7 @@ public class AdServiceImpl implements AdService {
 		}
 	}
 
+	@Override
 	public List<AdDto> searchByPage(AdDto adDto) {
         List<AdDto> result = new ArrayList<AdDto>();
         Ad condition = new Ad();
@@ -76,7 +81,6 @@ public class AdServiceImpl implements AdService {
 	public AdDto getById(Long id) {
 		AdDto result = new AdDto();
 		Ad ad = adDao.selectById(id);
-        /*AdDto ad = adDao.selectById(id);*/
 		BeanUtils.copyProperties(ad, result);
 		result.setImg(adImageUrl + ad.getImgFileName());
 		return result;
@@ -113,9 +117,9 @@ public class AdServiceImpl implements AdService {
 		if (updateCount != 1) {
 			return false;
 		}
-		if (fileName != null) {
+		/*if (fileName != null) {
 			return FileUtil.delete(adImageSavePath + adDto.getImgFileName());
-		}
+		}*/
 		return true;
 	}
 	

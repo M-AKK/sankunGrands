@@ -14,9 +14,8 @@ public class SessionInterceptor implements HandlerInterceptor {
 
 	/**
 	 * 在进入Handler方法执行之前执行本方法
-	 * 
 	 * @return true:执行下一个拦截器，直到所有拦截器都执行完，再执行被拦截的Controller
-	 *         false:从当前的拦截器往回执行所有拦截器的afterCompletion(),再退出拦截器链
+	 * false:从当前的拦截器往回执行所有拦截器的afterCompletion(),再退出拦截器链
 	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

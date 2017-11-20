@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by KHM
+ * @author Created by KHM
  * 2017/9/26 20:55
  */
 @Service
@@ -21,13 +21,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @Override
     public boolean validate(UserDto userDto) {
         if (userDto != null && !CommonUtil.isEmpty(userDto.getName()) && !CommonUtil.isEmpty(userDto.getPassword())) {
             User user = new User();
             BeanUtils.copyProperties(userDto, user);
             List<User> list = userDao.select(user);
             if(list.size() == 1) {
-                BeanUtils.copyProperties(list.get(0),userDto);//这里就是把根据userDto查找到的user再次复制给userDto，这样上一层就有groupid的值了
+                //这里就是把根据userDto查找到的user再次复制给userDto，这样上一层就有groupid的值了
+                BeanUtils.copyProperties(list.get(0),userDto);
                 return true;
             }
             return false;

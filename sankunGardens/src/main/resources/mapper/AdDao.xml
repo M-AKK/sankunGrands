@@ -22,8 +22,8 @@
     </resultMap>
 
 	<insert id="insert">
-		insert into api_imglist(title,description,img_file_name,weight)
-		 values(#{title},#{description},#{imgFileName},#{weight})
+		insert into api_imglist(title,description,img_file_name,weight,img_group_id)
+		 values(#{title},#{description},#{imgFileName},#{weight},#{imgGroupId})
 	</insert>
 	
 	<!--<select id="selectByPage" resultType="Ad">
@@ -76,6 +76,9 @@
 			</if>
 			<if test="weight != null">
 				weight = #{weight},
+			</if>
+			<if test="imgGroupId != null">
+				img_group_id = #{imgGroupId},
 			</if>
 		</set>
 		where id=#{id}

@@ -26,23 +26,15 @@ public class ApiMenuServiceImpl implements ApiMenuService {
      * 返回前端菜单列表
      * @return
      */
+    @Override
     public List<ApiMenuDto> getMenuList() {
         List<ApiMenuDto> apiMenuDtoList = new ArrayList<ApiMenuDto>();
 
         for(ApiMenu apiMenu : apiMenuDao.getMenuList()){
-            //System.out.println(apiMenu.getName());
             ApiMenuDto apiMenuDto = new ApiMenuDto();
             apiMenuDtoList.add(apiMenuDto);
             BeanUtils.copyProperties(apiMenu,apiMenuDto);
         }
-       /* for(int i=0; i<apiMenuDao.getMenuList().size(); i++){
-            System.out.println("第"+i+"个："+apiMenuDao.getMenuList().get(i).getName());
-        }
-        System.out.println("==========================================================================");
-
-        for(int i=0; i<apiMenuDtoList.size(); i++){
-            System.out.println("第"+i+"个："+apiMenuDtoList.get(i).getName());
-        }*/
         return apiMenuDtoList;
     }
 
@@ -50,6 +42,7 @@ public class ApiMenuServiceImpl implements ApiMenuService {
      * 返回所有父栏目的name
      * @return
      */
+    @Override
     public List<ApiMenu> getApiFMenuList(){
         return apiMenuDao.getFApiMenuList();
     }
@@ -58,6 +51,7 @@ public class ApiMenuServiceImpl implements ApiMenuService {
      * 返回所有子栏目的name
      * @return
      */
+    @Override
     public List<ApiMenu> getApiZMenuList(){
         return apiMenuDao.getZApiMenuList();
     }
